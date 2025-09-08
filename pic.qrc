@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pic/tel2.png</file>
+        <file>pic/tel.png</file>
+        <file>pic/power2.png</file>
+        <file>pic/power.png</file>
+        <file>pic/password2.png</file>
+        <file>pic/password.png</file>
+        <file>pic/fufu.png</file>
+        <file>pic/fingerprint2.png</file>
+        <file>pic/fingerprint.png</file>
+        <file>pic/face2.png</file>
+        <file>pic/face.png</file>
+        <file>pic/addAdmin2.png</file>
+        <file>pic/addAdmin.png</file>
+        <file>pic/fufu1.png</file>
+    </qresource>
+</RCC>
