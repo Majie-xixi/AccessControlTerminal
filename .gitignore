@@ -46,6 +46,16 @@
 # build directory
 build*/
 
+# Qt Creator / qmake
+Makefile
+Makefile.Debug
+Makefile.Release
+object_script.*
+.qmake.stash
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+
 # libraries
 deploy/
 
