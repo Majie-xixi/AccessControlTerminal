@@ -9,11 +9,11 @@
 #include "face/face_manager.h"
 #include "fingerprint/hailin_fingerprint.h"
 #include "fingerprint/fingerprint_manager.h"
-#include "ui/form_finger.h"
+#include "fingerprint/form_finger.h"
 #include "password/password_manager.h"
-#include "ui/form_passwd.h"
+#include "password/form_passwd.h"
 #include "call/call_controller.h"
-#include "ui/form_call.h"
+#include "call/form_call.h"
 #include <QTimer>
 #include <QDebug>
 #include <QImage>

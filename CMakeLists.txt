@@ -58,16 +58,16 @@ face/face_detector.cpp
 set(FINGERPRINT_SOURCES
 fingerprint/hailin_fingerprint.cpp
 fingerprint/fingerprint_manager.cpp
-ui/form_finger.cpp
+fingerprint/form_finger.cpp
 )
 
 set(PASSWORD_SOURCES
-ui/form_passwd.cpp
+password/form_passwd.cpp
 password/password_manager.cpp
 )
 
 set(CALL_SOURCES
-ui/form_call.cpp
+call/form_call.cpp
 call/audio_sender.cpp
 call/audio_receiver.cpp
 call/call_controller.cpp
@@ -108,10 +108,10 @@ face/face_manager.h
 face/face_detector.h
 fingerprint/hailin_fingerprint.h
 fingerprint/fingerprint_manager.h
-ui/form_finger.h
-ui/form_passwd.h
+fingerprint/form_finger.h
+password/form_passwd.h
 password/password_manager.h
-ui/form_call.h
+call/form_call.h
 call/audio_sender.h
 call/audio_receiver.h
 call/call_controller.h
