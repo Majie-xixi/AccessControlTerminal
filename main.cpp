@@ -1,4 +1,4 @@
-#include "src/core/widget.h"
+#include "core/widget.h"
 #include <QApplication>
 #include <QSurfaceFormat>
 

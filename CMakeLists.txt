@@ -40,49 +40,49 @@ find_library(GPIOD_LIB gpiod)
 
 # ==================== 源文件 ====================
 set(CORE_SOURCES
-    src/core/widget.cpp
-    src/core/app_coordinator.cpp
+core/widget.cpp
+core/app_coordinator.cpp
 )
 
 set(CAMERA_SOURCES
-    src/camera/v4l2_camera.cpp
-    src/camera/camera_udp_server.cpp
-    src/camera/camera_push_thread.cpp
+camera/v4l2_camera.cpp
+camera/camera_udp_server.cpp
+camera/camera_push_thread.cpp
 )
 
 set(FACE_SOURCES
-    src/face/face_manager.cpp
-    src/face/face_detector.cpp
+face/face_manager.cpp
+face/face_detector.cpp
 )
 
 set(FINGERPRINT_SOURCES
-    src/fingerprint/hailin_fingerprint.cpp
-    src/fingerprint/fingerprint_manager.cpp
-    src/fingerprint/form_finger.cpp
+fingerprint/hailin_fingerprint.cpp
+fingerprint/fingerprint_manager.cpp
+ui/form_finger.cpp
 )
 
 set(PASSWORD_SOURCES
-    src/password/form_passwd.cpp
-    src/password/password_manager.cpp
+ui/form_passwd.cpp
+password/password_manager.cpp
 )
 
 set(CALL_SOURCES
-    src/call/form_call.cpp
-    src/call/audio_sender.cpp
-    src/call/audio_receiver.cpp
-    src/call/call_controller.cpp
+ui/form_call.cpp
+call/audio_sender.cpp
+call/audio_receiver.cpp
+call/call_controller.cpp
 )
 
 set(AUDIO_SOURCES
-    src/audio/audio_manager.cpp
+audio/audio_manager.cpp
 )
 
 set(NETWORK_SOURCES
-    src/network/tcp_signaling.cpp
+network/tcp_signaling.cpp
 )
 
 set(HARDWARE_SOURCES
-    src/hardware/gpio_controller.cpp
+hardware/gpio_controller.cpp
 )
 
 set(ALL_SOURCES
@@ -99,32 +99,32 @@ set(ALL_SOURCES
 )
 
 set(ALL_HEADERS
-    src/core/widget.h
-    src/core/app_coordinator.h
-    src/camera/v4l2_camera.h
-    src/camera/camera_udp_server.h
-    src/camera/camera_push_thread.h
-    src/face/face_manager.h
-    src/face/face_detector.h
-    src/fingerprint/hailin_fingerprint.h
-    src/fingerprint/fingerprint_manager.h
-    src/fingerprint/form_finger.h
-    src/password/form_passwd.h
-    src/password/password_manager.h
-    src/call/form_call.h
-    src/call/audio_sender.h
-    src/call/audio_receiver.h
-    src/call/call_controller.h
-    src/audio/audio_manager.h
-    src/network/tcp_signaling.h
-    src/hardware/gpio_controller.h
+core/widget.h
+core/app_coordinator.h
+camera/v4l2_camera.h
+camera/camera_udp_server.h
+camera/camera_push_thread.h
+face/face_manager.h
+face/face_detector.h
+fingerprint/hailin_fingerprint.h
+fingerprint/fingerprint_manager.h
+ui/form_finger.h
+ui/form_passwd.h
+password/password_manager.h
+ui/form_call.h
+call/audio_sender.h
+call/audio_receiver.h
+call/call_controller.h
+audio/audio_manager.h
+network/tcp_signaling.h
+hardware/gpio_controller.h
 )
 
 set(UI_FILES
-    src/core/widget.ui
-    src/fingerprint/form_finger.ui
-    src/password/form_passwd.ui
-    src/call/form_call.ui
+ui/widget.ui
+ui/form_finger.ui
+ui/form_passwd.ui
+ui/form_call.ui
 )
 
 # ==================== 可执行文件 ====================
@@ -137,7 +137,7 @@ add_executable(${PROJECT_NAME}
 
 # ==================== Include 路径 ====================
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}
     ${OpenCV_INCLUDE_DIRS}
 )
 
