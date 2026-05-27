@@ -28,7 +28,7 @@
   <property name="styleSheet">
    <string notr="true">#Widget
 {
-	border-image: url(:/pic/fufu.png);
+	border-image: url(:/assets/fufu.png);
 }</string>
   </property>
   <widget class="QWidget" name="widget_4" native="true">
@@ -42,7 +42,7 @@
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgba(238, 238, 236,100);
-border-image: url(:/pic/fufu1.png);
+border-image: url(:/assets/fufu1.png);
 
 </string>
    </property>
@@ -163,8 +163,8 @@ background-color: rgb(238, 238, 236,100);</string>
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton { border-image: url(:/pic/tel.png); }
-QPushButton:pressed { border-image: url(:/pic/tel2.png); }
+          <string notr="true">QPushButton { border-image: url(:/assets/tel.png); }
+QPushButton:pressed { border-image: url(:/assets/tel2.png); }
 setStyleSheet(&quot;border:none&quot;);   </string>
          </property>
          <property name="text">
@@ -190,9 +190,9 @@ setStyleSheet(&quot;border:none&quot;);   </string>
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton { border-image: url(:/pic/fingerprint.png); }
+          <string notr="true">QPushButton { border-image: url(:/assets/fingerprint.png); }
 
-QPushButton:pressed { border-image: url(:/pic/fingerprint2.png); }
+QPushButton:pressed { border-image: url(:/assets/fingerprint2.png); }
 setStyleSheet(&quot;border:none&quot;);   
 </string>
          </property>
@@ -219,8 +219,8 @@ setStyleSheet(&quot;border:none&quot;);
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton { border-image: url(:/pic/face.png); }
-QPushButton:pressed { border-image: url(:/pic/face2.png); }
+          <string notr="true">QPushButton { border-image: url(:/assets/face.png); }
+QPushButton:pressed { border-image: url(:/assets/face2.png); }
 setStyleSheet(&quot;border:none&quot;);   
 </string>
          </property>
@@ -251,8 +251,8 @@ setStyleSheet(&quot;border:none&quot;);
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton { border-image: url(:/pic/addAdmin.png); }
-QPushButton:pressed { border-image: url(:/pic/addAdmin2.png); }
+          <string notr="true">QPushButton { border-image: url(:/assets/addAdmin.png); }
+QPushButton:pressed { border-image: url(:/assets/addAdmin2.png); }
 setStyleSheet(&quot;border:none&quot;);   
 </string>
          </property>
@@ -279,8 +279,8 @@ setStyleSheet(&quot;border:none&quot;);
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton { border-image: url(:/pic/password.png); }
-QPushButton:pressed { border-image: url(:/pic/password2.png); }
+          <string notr="true">QPushButton { border-image: url(:/assets/password.png); }
+QPushButton:pressed { border-image: url(:/assets/password2.png); }
 setStyleSheet(&quot;border:none&quot;);   
 </string>
          </property>
@@ -308,8 +308,8 @@ setStyleSheet(&quot;border:none&quot;);
          </property>
          <property name="styleSheet">
           <string notr="true">
-QPushButton { border-image: url(:/pic/power.png); }
-QPushButton:pressed { border-image: url(:/pic/power2.png); }
+QPushButton { border-image: url(:/assets/power.png); }
+QPushButton:pressed { border-image: url(:/assets/power2.png); }
 setStyleSheet(&quot;border:none&quot;);   </string>
          </property>
          <property name="text">

@@ -1,6 +1,6 @@
 #include "app_coordinator.h"
 #include "widget.h"
-#include "hardware/gpio_controller.h"
+#include "hal/gpio_controller.h"
 #include "intercom/audio_manager.h"
 #include "network/tcp_signaling.h"
 #include "camera/v4l2_camera.h"

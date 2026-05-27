@@ -6,7 +6,7 @@
 #include "camera/camera_push_thread.h"
 #include "network/tcp_signaling.h"
 #include "intercom/audio_manager.h"
-#include "hardware/gpio_controller.h"
+#include "hal/gpio_controller.h"
 #include <QDebug>
 #include <QTimer>
 #include <arpa/inet.h>

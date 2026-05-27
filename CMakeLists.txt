@@ -40,8 +40,8 @@ find_library(GPIOD_LIB gpiod)
 
 # ==================== 源文件 ====================
 set(CORE_SOURCES
-core/widget.cpp
-core/app_coordinator.cpp
+app/widget.cpp
+app/app_coordinator.cpp
 )
 
 set(CAMERA_SOURCES
@@ -80,7 +80,7 @@ network/tcp_signaling.cpp
 )
 
 set(HARDWARE_SOURCES
-hardware/gpio_controller.cpp
+hal/gpio_controller.cpp
 )
 
 set(ALL_SOURCES
@@ -97,8 +97,8 @@ set(ALL_SOURCES
 )
 
 set(ALL_HEADERS
-core/widget.h
-core/app_coordinator.h
+app/widget.h
+app/app_coordinator.h
 camera/v4l2_camera.h
 camera/camera_udp_server.h
 camera/camera_push_thread.h
@@ -115,7 +115,7 @@ intercom/audio_receiver.h
 intercom/call_controller.h
 intercom/audio_manager.h
 network/tcp_signaling.h
-hardware/gpio_controller.h
+hal/gpio_controller.h
 )
 
 set(UI_FILES
