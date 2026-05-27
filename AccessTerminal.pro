@@ -1,38 +1,79 @@
-QT       += core gui
+QT       += core gui widgets network serialport concurrent
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+CONFIG   += c++11
 
-CONFIG += c++11
+# ==================== ALSA ====================
+# T113 交叉编译时启用:
+# LIBS += -lasound
+# LIBS += -lpthread
 
-# The following define makes your compiler emit warnings if you use
-# any Qt feature that has been marked deprecated (the exact warnings
-# depend on your compiler). Please consult the documentation of the
-# deprecated API in order to know how to port your code away from it.
-DEFINES += QT_DEPRECATED_WARNINGS
+# ==================== OpenCV4 ====================
+# T113 交叉编译时取消注释:
+# INCLUDEPATH += /home/meetyoo/opencv_arm_build/_install/include/opencv4
+# LIBS += -L/home/meetyoo/opencv_arm_build/_install/lib
+# LIBS += -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_face
+# LIBS += -lopencv_highgui -lopencv_imgcodecs
 
-# You can also make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+# ==================== GPIO ====================
+# LIBS += -lgpiod
+# DEFINES += HAS_LIBGPIOD
+
+# ==================== ALSA 桌面开发（可选） ====================
+# mac: LIBS += -framework CoreAudio
+# win32: LIBS += -lwinmm
 
 SOURCES += \
     main.cpp \
-    widget.cpp
+    app/widget.cpp \
+    app/app_coordinator.cpp \
+    cameraManager/v4l2_camera.cpp \
+    cameraManager/camera_udp_server.cpp \
+    cameraManager/camera_push_thread.cpp \
+    cameraManager/face_detector.cpp \
+    cameraManager/face_manager.cpp \
+    fingerprintManager/hailin_fingerprint.cpp \
+    fingerprintManager/fingerprint_manager.cpp \
+    fingerprintManager/form_finger.cpp \
+    passwordManager/form_password.cpp \
+    passwordManager/password_manager.cpp \
+    audioManager/audio_manager.cpp \
+    audioManager/audio_sender.cpp \
+    audioManager/audio_receiver.cpp \
+    audioManager/call_controller.cpp \
+    audioManager/form_intercom.cpp \
+    networkManager/tcp_signaling.cpp \
+    halManager/gpio_controller.cpp
 
 HEADERS += \
-    widget.h
+    app/widget.h \
+    app/app_coordinator.h \
+    cameraManager/v4l2_camera.h \
+    cameraManager/camera_udp_server.h \
+    cameraManager/camera_push_thread.h \
+    cameraManager/face_detector.h \
+    cameraManager/face_manager.h \
+    fingerprintManager/hailin_fingerprint.h \
+    fingerprintManager/fingerprint_manager.h \
+    fingerprintManager/form_finger.h \
+    passwordManager/form_password.h \
+    passwordManager/password_manager.h \
+    audioManager/audio_manager.h \
+    audioManager/audio_sender.h \
+    audioManager/audio_receiver.h \
+    audioManager/call_controller.h \
+    audioManager/form_intercom.h \
+    networkManager/tcp_signaling.h \
+    halManager/gpio_controller.h
 
 FORMS += \
-    widget.ui
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+    ui/widget.ui \
+    ui/form_finger.ui \
+    ui/form_password.ui \
+    ui/form_intercom.ui
 
 RESOURCES += \
-    pic.qrc \
-    pic.qrc
+    res.qrc
 
-DISTFILES += \
-    pic/addAdmin.png
+INCLUDEPATH += $$PWD
+
+TARGET = AccessTerminal
