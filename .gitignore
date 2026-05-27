@@ -59,6 +59,9 @@ qrc_*.cpp
 # libraries
 deploy/
 
+# private docs
+docs/
+
 # protobuf source files
 *.pb.h
 *.pb.cc
