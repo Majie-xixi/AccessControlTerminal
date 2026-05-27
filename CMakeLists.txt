@@ -71,11 +71,9 @@ call/form_call.cpp
 call/audio_sender.cpp
 call/audio_receiver.cpp
 call/call_controller.cpp
+    call/audio_manager.cpp
 )
 
-set(AUDIO_SOURCES
-audio/audio_manager.cpp
-)
 
 set(NETWORK_SOURCES
 network/tcp_signaling.cpp
@@ -93,7 +91,7 @@ set(ALL_SOURCES
     ${FINGERPRINT_SOURCES}
     ${PASSWORD_SOURCES}
     ${CALL_SOURCES}
-    ${AUDIO_SOURCES}
+    
     ${NETWORK_SOURCES}
     ${HARDWARE_SOURCES}
 )
@@ -115,7 +113,7 @@ call/form_call.h
 call/audio_sender.h
 call/audio_receiver.h
 call/call_controller.h
-audio/audio_manager.h
+call/audio_manager.h
 network/tcp_signaling.h
 hardware/gpio_controller.h
 )
