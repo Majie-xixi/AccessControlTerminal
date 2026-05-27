@@ -7,6 +7,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
 
+class AppCoordinator;
+
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -14,10 +16,19 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
-public slots:
-    void TimerUpdate(void);
+
+    void setCoordinator(AppCoordinator* coordinator);
+
+signals:
+    void btnCallClicked();
+    void btnAddClicked();
+    void btnPasswordClicked();
+    void btnPowerClicked();
+    void btnFaceClicked();
 
 private:
     Ui::Widget *ui;
+    AppCoordinator* m_coordinator = nullptr;
 };
+
 #endif // WIDGET_H

@@ -7,8 +7,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+
+
 # ==================== Qt5 ====================
 set(CMAKE_PREFIX_PATH "$ENV{QT_HOME}" ${CMAKE_PREFIX_PATH})
+set(CMAKE_PREFIX_PATH "D:/Qt/Qt5.12.2/5.12.2/mingw73_32")
 find_package(Qt5 REQUIRED COMPONENTS
     Core
     Gui
