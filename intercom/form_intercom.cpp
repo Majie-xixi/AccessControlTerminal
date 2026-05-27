@@ -1,9 +1,9 @@
-#include "form_call.h"
-#include "ui_form_call.h"
+#include "form_intercom.h"
+#include "ui_form_intercom.h"
 
-Form_CALL::Form_CALL(QWidget *parent) :
+FormIntercom::FormIntercom(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Form_CALL)
+    ui(new Ui::FormIntercom)
 {
     ui->setupUi(this);
     this->setAttribute(Qt::WA_TranslucentBackground, true);
@@ -21,21 +21,21 @@ Form_CALL::Form_CALL(QWidget *parent) :
     });
 }
 
-void Form_CALL::setStatusText(const QString& text) {
+void FormIntercom::setStatusText(const QString& text) {
     ui->label->setText(text);
 }
 
-void Form_CALL::startCallTimer() {
+void FormIntercom::startCallTimer() {
     callSeconds = 0;
     callTimer->start(1000);
     ui->label->setText("通话中 00:00");
 }
 
-void Form_CALL::stopCallTimer() {
+void FormIntercom::stopCallTimer() {
     callTimer->stop();
 }
 
-Form_CALL::~Form_CALL()
+FormIntercom::~FormIntercom()
 {
     delete ui;
 }

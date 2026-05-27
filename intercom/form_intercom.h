@@ -5,16 +5,16 @@
 #include <QTimer>
 
 namespace Ui {
-class Form_CALL;
+class FormIntercom;
 }
 
-class Form_CALL : public QWidget
+class FormIntercom : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Form_CALL(QWidget *parent = nullptr);
-    ~Form_CALL();
+    explicit FormIntercom(QWidget *parent = nullptr);
+    ~FormIntercom();
 
 signals:
     void hangupRequested();
@@ -25,7 +25,7 @@ public slots:
     void startCallTimer();
     void stopCallTimer();
 private:
-    Ui::Form_CALL *ui;
+    Ui::FormIntercom *ui;
     QTimer* callTimer = nullptr;
     int callSeconds = 0;
 };

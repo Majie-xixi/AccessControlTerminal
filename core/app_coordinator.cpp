@@ -1,7 +1,7 @@
 #include "app_coordinator.h"
 #include "widget.h"
 #include "hardware/gpio_controller.h"
-#include "call/audio_manager.h"
+#include "intercom/audio_manager.h"
 #include "network/tcp_signaling.h"
 #include "camera/v4l2_camera.h"
 #include "camera/camera_udp_server.h"
@@ -11,9 +11,9 @@
 #include "fingerprint/fingerprint_manager.h"
 #include "fingerprint/form_finger.h"
 #include "password/password_manager.h"
-#include "password/form_passwd.h"
-#include "call/call_controller.h"
-#include "call/form_call.h"
+#include "password/form_password.h"
+#include "intercom/call_controller.h"
+#include "intercom/form_intercom.h"
 #include <QTimer>
 #include <QDebug>
 #include <QImage>
@@ -149,10 +149,10 @@ void AppCoordinator::onAddClicked()
 
 void AppCoordinator::onPasswordClicked()
 {
-    Form_passwd* pwForm = new Form_passwd(m_widget);
+    FormPassword* pwForm = new FormPassword(m_widget);
     pwForm->setAttribute(Qt::WA_DeleteOnClose);
-    connect(pwForm, &Form_passwd::passwordEntered, m_pwManager, &PasswordManager::checkPassword);
-    connect(pwForm, &Form_passwd::requestPlayAudio, m_audioManager, &AudioManager::playAsync);
+    connect(pwForm, &FormPassword::passwordEntered, m_pwManager, &PasswordManager::checkPassword);
+    connect(pwForm, &FormPassword::requestPlayAudio, m_audioManager, &AudioManager::playAsync);
     QPoint pos = m_widget->findChild<QWidget*>("widget_3")->mapToGlobal(QPoint(0, 0));
     pwForm->move(pos);
     pwForm->show();

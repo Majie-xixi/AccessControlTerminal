@@ -19,7 +19,7 @@ class FingerprintManager;
 class PasswordManager;
 class CallController;
 class Form_finger;
-class Form_passwd;
+class FormPassword;
 
 class AppCoordinator : public QObject
 {
@@ -76,7 +76,7 @@ private:
     CallController* m_callCtrl = nullptr;
 
     Form_finger* m_fingerForm = nullptr;
-    Form_passwd* m_passwdForm = nullptr;
+    FormPassword* m_passwdForm = nullptr;
 
     bool m_hasPerson = false;
     int m_nextFingerId = 1;

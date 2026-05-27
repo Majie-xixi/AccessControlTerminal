@@ -1,12 +1,12 @@
-#include "form_passwd.h"
-#include "ui_form_passwd.h"
+#include "form_password.h"
+#include "ui_form_password.h"
 #include <QFile>
 #include <QProcess>
 #include <QDebug>
 
-Form_passwd::Form_passwd(QWidget *parent) :
+FormPassword::FormPassword(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Form_passwd)
+    ui(new Ui::FormPassword)
 {
     ui->setupUi(this);
     // 连接数字按钮
@@ -15,23 +15,23 @@ Form_passwd::Form_passwd(QWidget *parent) :
         ui->btn5, ui->btn6, ui->btn7, ui->btn8, ui->btn9
     };
     for (auto btn : digitButtons) {
-        connect(btn, &QPushButton::clicked, this, &Form_passwd::onDigitClicked);
+        connect(btn, &QPushButton::clicked, this, &FormPassword::onDigitClicked);
         btn->setFocusPolicy(Qt::NoFocus);
     }
-    connect(ui->btnbck, &QPushButton::clicked, this, &Form_passwd::on_btnbck_clicked);
-    connect(ui->btnok, &QPushButton::clicked, this, &Form_passwd::on_btnok_clicked);
+    connect(ui->btnbck, &QPushButton::clicked, this, &FormPassword::on_btnbck_clicked);
+    connect(ui->btnok, &QPushButton::clicked, this, &FormPassword::on_btnok_clicked);
     inputBuffer.clear();
     updateDisplay();
 
 
 }
 
-Form_passwd::~Form_passwd()
+FormPassword::~FormPassword()
 {
     delete ui;
 }
 
-void Form_passwd::onDigitClicked()
+void FormPassword::onDigitClicked()
 {
     QPushButton* btn = qobject_cast<QPushButton*>(sender());
     if (!btn) return;
@@ -42,7 +42,7 @@ void Form_passwd::onDigitClicked()
     updateDisplay();
 }
 
-void Form_passwd::on_btnbck_clicked()
+void FormPassword::on_btnbck_clicked()
 {
     qDebug() << "[passwd] Backspace clicked";
     if (!inputBuffer.isEmpty()) {
@@ -52,7 +52,7 @@ void Form_passwd::on_btnbck_clicked()
     }
 }
 
-void Form_passwd::on_btnok_clicked()
+void FormPassword::on_btnok_clicked()
 {
     qDebug() << "[passwd] OK clicked, inputBuffer=" << inputBuffer << ", hex=" << inputBuffer.toUtf8().toHex();
     if (!inputBuffer.isEmpty())
@@ -61,18 +61,18 @@ void Form_passwd::on_btnok_clicked()
     updateDisplay();
 }
 
-void Form_passwd::updateDisplay()
+void FormPassword::updateDisplay()
 {
     // 不显示密码框，无需实现
 }
 
-void Form_passwd::playKeySound(const QString& path)
+void FormPassword::playKeySound(const QString& path)
 {
     qDebug() << "[passwd] playKeySound called with path:" << path;
     emit requestPlayAudio(path);
 }
 
-void Form_passwd::on_btn1_clicked()
+void FormPassword::on_btn1_clicked()
 {
    // qDebug() << "[passwd] key";
 }

@@ -62,16 +62,16 @@ fingerprint/form_finger.cpp
 )
 
 set(PASSWORD_SOURCES
-password/form_passwd.cpp
+password/form_password.cpp
 password/password_manager.cpp
 )
 
 set(CALL_SOURCES
-call/form_call.cpp
-call/audio_sender.cpp
-call/audio_receiver.cpp
-call/call_controller.cpp
-    call/audio_manager.cpp
+intercom/form_intercom.cpp
+intercom/audio_sender.cpp
+intercom/audio_receiver.cpp
+intercom/call_controller.cpp
+    intercom/audio_manager.cpp
 )
 
 
@@ -107,13 +107,13 @@ face/face_detector.h
 fingerprint/hailin_fingerprint.h
 fingerprint/fingerprint_manager.h
 fingerprint/form_finger.h
-password/form_passwd.h
+password/form_password.h
 password/password_manager.h
-call/form_call.h
-call/audio_sender.h
-call/audio_receiver.h
-call/call_controller.h
-call/audio_manager.h
+intercom/form_intercom.h
+intercom/audio_sender.h
+intercom/audio_receiver.h
+intercom/call_controller.h
+intercom/audio_manager.h
 network/tcp_signaling.h
 hardware/gpio_controller.h
 )
@@ -121,8 +121,8 @@ hardware/gpio_controller.h
 set(UI_FILES
 ui/widget.ui
 ui/form_finger.ui
-ui/form_passwd.ui
-ui/form_call.ui
+ui/form_password.ui
+ui/form_intercom.ui
 )
 
 # ==================== 可执行文件 ====================

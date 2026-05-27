@@ -10,7 +10,7 @@ class V4L2Camera;
 class CameraPushThread;
 class AudioSenderThread;
 class AudioReceiverThread;
-class Form_CALL;
+class FormIntercom;
 class TcpSignaling;
 class AudioManager;
 class GpioController;
@@ -53,7 +53,7 @@ private:
     QWidget* m_formParent = nullptr;
     QPoint m_formAnchor;
 
-    Form_CALL* m_callForm = nullptr;
+    FormIntercom* m_callForm = nullptr;
     CameraPushThread* m_cameraPush = nullptr;
     AudioSenderThread* m_audioSender = nullptr;
     AudioReceiverThread* m_audioReceiver = nullptr;

@@ -6,16 +6,16 @@
 #include <QString>
 
 namespace Ui {
-class Form_passwd;
+class FormPassword;
 }
 
-class Form_passwd : public QWidget
+class FormPassword : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Form_passwd(QWidget *parent = nullptr);
-    ~Form_passwd();
+    explicit FormPassword(QWidget *parent = nullptr);
+    ~FormPassword();
 
 private slots:
     void onDigitClicked();
@@ -25,7 +25,7 @@ private slots:
     void on_btn1_clicked();
 
 private:
-    Ui::Form_passwd *ui;
+    Ui::FormPassword *ui;
     QString inputBuffer;
     const QString correctPassword = "5788";
     void updateDisplay();
