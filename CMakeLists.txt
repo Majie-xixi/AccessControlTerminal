@@ -7,8 +7,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-
-
 # ==================== Qt5 ====================
 set(CMAKE_PREFIX_PATH "$ENV{QT_HOME}" ${CMAKE_PREFIX_PATH})
 set(CMAKE_PREFIX_PATH "D:/Qt/Qt5.12.2/5.12.2/mingw73_32")
@@ -17,7 +15,6 @@ find_package(Qt5 REQUIRED COMPONENTS
     Gui
     Widgets
     Network
-
     SerialPort
     Concurrent
 )
@@ -39,90 +36,84 @@ find_library(ASOUND_LIB asound REQUIRED)
 find_library(GPIOD_LIB gpiod)
 
 # ==================== 源文件 ====================
-set(CORE_SOURCES
-app/widget.cpp
-app/app_coordinator.cpp
+set(APP_SOURCES
+    app/widget.cpp
+    app/app_coordinator.cpp
 )
 
 set(CAMERA_SOURCES
-videoManager/v4l2_camera.cpp
-videoManager/camera_udp_server.cpp
-videoManager/camera_push_thread.cpp
-)
-
-set(FACE_SOURCES
-faceManager/face_manager.cpp
-faceManager/face_detector.cpp
+    cameraManager/v4l2_camera.cpp
+    cameraManager/camera_udp_server.cpp
+    cameraManager/camera_push_thread.cpp
+    cameraManager/face_detector.cpp
+    cameraManager/face_manager.cpp
 )
 
 set(FINGERPRINT_SOURCES
-fingerprintManager/hailin_fingerprint.cpp
-fingerprintManager/fingerprint_manager.cpp
-fingerprintManager/form_finger.cpp
+    fingerprintManager/hailin_fingerprint.cpp
+    fingerprintManager/fingerprint_manager.cpp
+    fingerprintManager/form_finger.cpp
 )
 
 set(PASSWORD_SOURCES
-passwordManager/form_password.cpp
-passwordManager/password_manager.cpp
+    passwordManager/form_password.cpp
+    passwordManager/password_manager.cpp
 )
 
-set(CALL_SOURCES
-audioManager/form_intercom.cpp
-audioManager/audio_sender.cpp
-audioManager/audio_receiver.cpp
-audioManager/call_controller.cpp
+set(AUDIO_SOURCES
     audioManager/audio_manager.cpp
+    audioManager/audio_sender.cpp
+    audioManager/audio_receiver.cpp
+    audioManager/call_controller.cpp
+    audioManager/form_intercom.cpp
 )
-
 
 set(NETWORK_SOURCES
-networkManager/tcp_signaling.cpp
+    networkManager/tcp_signaling.cpp
 )
 
-set(HARDWARE_SOURCES
-halManager/gpio_controller.cpp
+set(HAL_SOURCES
+    halManager/gpio_controller.cpp
 )
 
 set(ALL_SOURCES
     main.cpp
-    ${CORE_SOURCES}
+    ${APP_SOURCES}
     ${CAMERA_SOURCES}
-    ${FACE_SOURCES}
     ${FINGERPRINT_SOURCES}
     ${PASSWORD_SOURCES}
-    ${CALL_SOURCES}
-    
+    ${AUDIO_SOURCES}
     ${NETWORK_SOURCES}
-    ${HARDWARE_SOURCES}
+    ${HAL_SOURCES}
 )
 
 set(ALL_HEADERS
-app/widget.h
-app/app_coordinator.h
-videoManager/v4l2_camera.h
-videoManager/camera_udp_server.h
-videoManager/camera_push_thread.h
-faceManager/face_manager.h
-faceManager/face_detector.h
-fingerprintManager/hailin_fingerprint.h
-fingerprintManager/fingerprint_manager.h
-fingerprintManager/form_finger.h
-passwordManager/form_password.h
-passwordManager/password_manager.h
-audioManager/form_intercom.h
-audioManager/audio_sender.h
-audioManager/audio_receiver.h
-audioManager/call_controller.h
-audioManager/audio_manager.h
-networkManager/tcp_signaling.h
-halManager/gpio_controller.h
+    app/widget.h
+    app/app_coordinator.h
+    cameraManager/v4l2_camera.h
+    cameraManager/camera_udp_server.h
+    cameraManager/camera_push_thread.h
+    cameraManager/face_detector.h
+    cameraManager/face_manager.h
+    fingerprintManager/hailin_fingerprint.h
+    fingerprintManager/fingerprint_manager.h
+    fingerprintManager/form_finger.h
+    passwordManager/form_password.h
+    passwordManager/password_manager.h
+    audioManager/audio_manager.h
+    audioManager/audio_sender.h
+    audioManager/audio_receiver.h
+    audioManager/call_controller.h
+    audioManager/form_intercom.h
+    networkManager/tcp_signaling.h
+    halManager/gpio_controller.h
 )
 
 set(UI_FILES
-ui/widget.ui
-ui/form_finger.ui
-ui/form_password.ui
-ui/form_intercom.ui
+    ui/widget.ui
+    ui/form_finger.ui
+    ui/form_password.ui
+    ui/form_intercom.ui
 )
 
 # ==================== 可执行文件 ====================
@@ -133,13 +124,11 @@ add_executable(${PROJECT_NAME}
     res.qrc
 )
 
-# ==================== Include 路径 ====================
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${OpenCV_INCLUDE_DIRS}
 )
 
-# ==================== 链接库 ====================
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Core
     Qt5::Gui
@@ -152,13 +141,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     pthread
 )
 
-# GPIO 为可选依赖（桌面开发可能没有 libgpiod）
 if(GPIOD_LIB)
     target_link_libraries(${PROJECT_NAME} PRIVATE ${GPIOD_LIB})
     target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_LIBGPIOD)
 endif()
 
-# ==================== 编译选项 ====================
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     QT_DEPRECATED_WARNINGS
 )
