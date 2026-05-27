@@ -1,36 +1,105 @@
 # AccessControlTerminal
 
-#### Description
-基于全志T113+QT实现的门径系统,其中包括人脸识别，指纹识别，密码识别，语音通话等功能
+A smart access control terminal based on Allwinner T113 + Qt5.
 
-#### Software Architecture
-Software architecture description
+## Features
 
-#### Installation
+| Module | Description |
+|--------|-------------|
+| Face Recognition | V4L2 camera capture + OpenCV face detection + LBPH recognition algorithm, supports registration and real-time matching |
+| Fingerprint Recognition | Hailin fingerprint module via UART serial, supports 1:N auto-identify and auto-enroll |
+| Password | Local password verification with configurable passcode |
+| Video Intercom | TCP signaling + ALSA audio capture/playback + UDP camera streaming, supports two-way calls between terminal and indoor unit |
+| Hardware Control | GPIO-controlled PIR sensor (PE4), fill light (PE5), and relay door lock |
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## Hardware Platform
 
-#### Instructions
+- **SoC**: Allwinner T113 (ARM Cortex-A7)
+- **OS**: Tina Linux (OpenWrt-based)
+- **Peripherals**:
+  - USB camera (V4L2)
+  - Hailin fingerprint module (UART, `/dev/ttyS4`)
+  - PIR motion sensor (PE4)
+  - Fill light (PE5)
+  - Relay / electromagnetic lock
+  - Microphone + speaker (ALSA)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## Architecture
 
-#### Contribution
+```
+main.cpp
+├── app/                      # Application layer
+│   ├── Widget (main UI)
+│   └── AppCoordinator (module coordinator)
+├── cameraManager/            # Camera & face recognition
+│   ├── V4L2Camera (V4L2 capture)
+│   ├── FaceDetector (face detection)
+│   ├── FaceManager (LBPH training & recognition)
+│   ├── CameraUdpServer (UDP video streaming)
+│   └── CameraPushThread (encoding & push thread)
+├── fingerprintManager/       # Fingerprint
+│   ├── HailinFingerprint (serial protocol)
+│   ├── FingerprintManager (business logic)
+│   └── Form_finger (enrollment UI)
+├── passwordManager/          # Password
+│   ├── PasswordManager (verification)
+│   └── FormPassword (input UI)
+├── audioManager/             # Audio & intercom
+│   ├── AudioManager (ALSA capture/playback)
+│   ├── AudioSenderThread (audio TX)
+│   ├── AudioReceiverThread (audio RX)
+│   ├── CallController (call state machine)
+│   └── FormIntercom (intercom UI)
+├── networkManager/           # Networking
+│   └── TcpSignaling (TCP signaling)
+└── halManager/               # Hardware abstraction
+    └── GpioController (GPIO control)
+```
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+## Dependencies
 
+| Dependency | Notes |
+|------------|-------|
+| Qt 5.12+ | Core, Gui, Widgets, Network, SerialPort, Concurrent |
+| OpenCV 4.x | core, imgproc, objdetect, face |
+| ALSA | libasound (audio) |
+| libgpiod | GPIO control |
+| pthread | Multithreading |
 
-#### Gitee Feature
+## Build
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+Both qmake (`.pro`) and CMake are supported.
+
+### qmake
+
+```bash
+mkdir build && cd build
+qmake ../AccessTerminal.pro
+make -j$(nproc)
+```
+
+### CMake
+
+```bash
+mkdir build && cd build
+cmake .. -DOpenCV_DIR=/path/to/opencv
+make -j$(nproc)
+```
+
+### T113 Cross-Compilation
+
+Edit `CMakeLists.txt` to set the cross-compiler paths and uncomment:
+
+```cmake
+set(CMAKE_C_COMPILER   arm-openwrt-linux-gcc)
+set(CMAKE_CXX_COMPILER arm-openwrt-linux-g++)
+set(CMAKE_SYSROOT      /path/to/tina-sdk/staging_dir/target)
+```
+
+## Running
+
+```bash
+./AccessTerminal
+```
+
+The terminal stays in standby mode and detects approaching persons via PIR sensor. It supports three access methods (face / fingerprint / password) and one-touch video intercom calls to the indoor unit.
