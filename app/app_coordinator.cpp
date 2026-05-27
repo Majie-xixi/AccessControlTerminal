@@ -1,10 +1,10 @@
 #include "app_coordinator.h"
 #include "widget.h"
 #include "hal/gpio_controller.h"
-#include "intercom/audio_manager.h"
+#include "audio/audio_manager.h"
 #include "network/tcp_signaling.h"
-#include "camera/v4l2_camera.h"
-#include "camera/camera_udp_server.h"
+#include "video/v4l2_camera.h"
+#include "video/camera_udp_server.h"
 #include "face/face_detector.h"
 #include "face/face_manager.h"
 #include "fingerprint/hailin_fingerprint.h"
@@ -12,8 +12,8 @@
 #include "fingerprint/form_finger.h"
 #include "password/password_manager.h"
 #include "password/form_password.h"
-#include "intercom/call_controller.h"
-#include "intercom/form_intercom.h"
+#include "audio/call_controller.h"
+#include "audio/form_intercom.h"
 #include <QTimer>
 #include <QDebug>
 #include <QImage>

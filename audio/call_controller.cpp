@@ -1,11 +1,11 @@
 #include "call_controller.h"
-#include "intercom/form_intercom.h"
+#include "audio/form_intercom.h"
 #include "audio_sender.h"
 #include "audio_receiver.h"
-#include "camera/v4l2_camera.h"
-#include "camera/camera_push_thread.h"
+#include "video/v4l2_camera.h"
+#include "video/camera_push_thread.h"
 #include "network/tcp_signaling.h"
-#include "intercom/audio_manager.h"
+#include "audio/audio_manager.h"
 #include "hal/gpio_controller.h"
 #include <QDebug>
 #include <QTimer>

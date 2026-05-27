@@ -45,9 +45,9 @@ app/app_coordinator.cpp
 )
 
 set(CAMERA_SOURCES
-camera/v4l2_camera.cpp
-camera/camera_udp_server.cpp
-camera/camera_push_thread.cpp
+video/v4l2_camera.cpp
+video/camera_udp_server.cpp
+video/camera_push_thread.cpp
 )
 
 set(FACE_SOURCES
@@ -67,11 +67,11 @@ password/password_manager.cpp
 )
 
 set(CALL_SOURCES
-intercom/form_intercom.cpp
-intercom/audio_sender.cpp
-intercom/audio_receiver.cpp
-intercom/call_controller.cpp
-    intercom/audio_manager.cpp
+audio/form_intercom.cpp
+audio/audio_sender.cpp
+audio/audio_receiver.cpp
+audio/call_controller.cpp
+    audio/audio_manager.cpp
 )
 
 
@@ -99,9 +99,9 @@ set(ALL_SOURCES
 set(ALL_HEADERS
 app/widget.h
 app/app_coordinator.h
-camera/v4l2_camera.h
-camera/camera_udp_server.h
-camera/camera_push_thread.h
+video/v4l2_camera.h
+video/camera_udp_server.h
+video/camera_push_thread.h
 face/face_manager.h
 face/face_detector.h
 fingerprint/hailin_fingerprint.h
@@ -109,11 +109,11 @@ fingerprint/fingerprint_manager.h
 fingerprint/form_finger.h
 password/form_password.h
 password/password_manager.h
-intercom/form_intercom.h
-intercom/audio_sender.h
-intercom/audio_receiver.h
-intercom/call_controller.h
-intercom/audio_manager.h
+audio/form_intercom.h
+audio/audio_sender.h
+audio/audio_receiver.h
+audio/call_controller.h
+audio/audio_manager.h
 network/tcp_signaling.h
 hal/gpio_controller.h
 )
