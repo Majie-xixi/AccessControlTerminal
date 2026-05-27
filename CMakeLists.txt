@@ -45,42 +45,42 @@ app/app_coordinator.cpp
 )
 
 set(CAMERA_SOURCES
-video/v4l2_camera.cpp
-video/camera_udp_server.cpp
-video/camera_push_thread.cpp
+videoManager/v4l2_camera.cpp
+videoManager/camera_udp_server.cpp
+videoManager/camera_push_thread.cpp
 )
 
 set(FACE_SOURCES
-face/face_manager.cpp
-face/face_detector.cpp
+faceManager/face_manager.cpp
+faceManager/face_detector.cpp
 )
 
 set(FINGERPRINT_SOURCES
-fingerprint/hailin_fingerprint.cpp
-fingerprint/fingerprint_manager.cpp
-fingerprint/form_finger.cpp
+fingerprintManager/hailin_fingerprint.cpp
+fingerprintManager/fingerprint_manager.cpp
+fingerprintManager/form_finger.cpp
 )
 
 set(PASSWORD_SOURCES
-password/form_password.cpp
-password/password_manager.cpp
+passwordManager/form_password.cpp
+passwordManager/password_manager.cpp
 )
 
 set(CALL_SOURCES
-audio/form_intercom.cpp
-audio/audio_sender.cpp
-audio/audio_receiver.cpp
-audio/call_controller.cpp
-    audio/audio_manager.cpp
+audioManager/form_intercom.cpp
+audioManager/audio_sender.cpp
+audioManager/audio_receiver.cpp
+audioManager/call_controller.cpp
+    audioManager/audio_manager.cpp
 )
 
 
 set(NETWORK_SOURCES
-network/tcp_signaling.cpp
+networkManager/tcp_signaling.cpp
 )
 
 set(HARDWARE_SOURCES
-hal/gpio_controller.cpp
+halManager/gpio_controller.cpp
 )
 
 set(ALL_SOURCES
@@ -99,23 +99,23 @@ set(ALL_SOURCES
 set(ALL_HEADERS
 app/widget.h
 app/app_coordinator.h
-video/v4l2_camera.h
-video/camera_udp_server.h
-video/camera_push_thread.h
-face/face_manager.h
-face/face_detector.h
-fingerprint/hailin_fingerprint.h
-fingerprint/fingerprint_manager.h
-fingerprint/form_finger.h
-password/form_password.h
-password/password_manager.h
-audio/form_intercom.h
-audio/audio_sender.h
-audio/audio_receiver.h
-audio/call_controller.h
-audio/audio_manager.h
-network/tcp_signaling.h
-hal/gpio_controller.h
+videoManager/v4l2_camera.h
+videoManager/camera_udp_server.h
+videoManager/camera_push_thread.h
+faceManager/face_manager.h
+faceManager/face_detector.h
+fingerprintManager/hailin_fingerprint.h
+fingerprintManager/fingerprint_manager.h
+fingerprintManager/form_finger.h
+passwordManager/form_password.h
+passwordManager/password_manager.h
+audioManager/form_intercom.h
+audioManager/audio_sender.h
+audioManager/audio_receiver.h
+audioManager/call_controller.h
+audioManager/audio_manager.h
+networkManager/tcp_signaling.h
+halManager/gpio_controller.h
 )
 
 set(UI_FILES
