@@ -17,7 +17,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     Gui
     Widgets
     Network
-        
+
     SerialPort
     Concurrent
 )
