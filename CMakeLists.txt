@@ -1,0 +1,167 @@
+cmake_minimum_required(VERSION 3.16)
+project(AccessTerminal VERSION 1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+# ==================== Qt5 ====================
+set(CMAKE_PREFIX_PATH "$ENV{QT_HOME}" ${CMAKE_PREFIX_PATH})
+find_package(Qt5 REQUIRED COMPONENTS
+    Core
+    Gui
+    Widgets
+    Network
+    SerialPort
+    Concurrent
+)
+
+# ==================== OpenCV4 ====================
+# T113 交叉编译时替换为: /home/meetyoo/opencv_arm_build/_install
+set(OpenCV_DIR "" CACHE PATH "OpenCV install directory")
+find_package(OpenCV REQUIRED COMPONENTS
+    core
+    imgproc
+    objdetect
+    face
+)
+
+# ==================== ALSA ====================
+find_library(ASOUND_LIB asound REQUIRED)
+
+# ==================== GPIO ====================
+find_library(GPIOD_LIB gpiod)
+
+# ==================== 源文件 ====================
+set(CORE_SOURCES
+    src/core/widget.cpp
+    src/core/app_coordinator.cpp
+)
+
+set(CAMERA_SOURCES
+    src/camera/v4l2_camera.cpp
+    src/camera/camera_udp_server.cpp
+    src/camera/camera_push_thread.cpp
+)
+
+set(FACE_SOURCES
+    src/face/face_manager.cpp
+    src/face/face_detector.cpp
+)
+
+set(FINGERPRINT_SOURCES
+    src/fingerprint/hailin_fingerprint.cpp
+    src/fingerprint/fingerprint_manager.cpp
+    src/fingerprint/form_finger.cpp
+)
+
+set(PASSWORD_SOURCES
+    src/password/form_passwd.cpp
+    src/password/password_manager.cpp
+)
+
+set(CALL_SOURCES
+    src/call/form_call.cpp
+    src/call/audio_sender.cpp
+    src/call/audio_receiver.cpp
+    src/call/call_controller.cpp
+)
+
+set(AUDIO_SOURCES
+    src/audio/audio_manager.cpp
+)
+
+set(NETWORK_SOURCES
+    src/network/tcp_signaling.cpp
+)
+
+set(HARDWARE_SOURCES
+    src/hardware/gpio_controller.cpp
+)
+
+set(ALL_SOURCES
+    main.cpp
+    ${CORE_SOURCES}
+    ${CAMERA_SOURCES}
+    ${FACE_SOURCES}
+    ${FINGERPRINT_SOURCES}
+    ${PASSWORD_SOURCES}
+    ${CALL_SOURCES}
+    ${AUDIO_SOURCES}
+    ${NETWORK_SOURCES}
+    ${HARDWARE_SOURCES}
+)
+
+set(ALL_HEADERS
+    src/core/widget.h
+    src/core/app_coordinator.h
+    src/camera/v4l2_camera.h
+    src/camera/camera_udp_server.h
+    src/camera/camera_push_thread.h
+    src/face/face_manager.h
+    src/face/face_detector.h
+    src/fingerprint/hailin_fingerprint.h
+    src/fingerprint/fingerprint_manager.h
+    src/fingerprint/form_finger.h
+    src/password/form_passwd.h
+    src/password/password_manager.h
+    src/call/form_call.h
+    src/call/audio_sender.h
+    src/call/audio_receiver.h
+    src/call/call_controller.h
+    src/audio/audio_manager.h
+    src/network/tcp_signaling.h
+    src/hardware/gpio_controller.h
+)
+
+set(UI_FILES
+    src/core/widget.ui
+    src/fingerprint/form_finger.ui
+    src/password/form_passwd.ui
+    src/call/form_call.ui
+)
+
+# ==================== 可执行文件 ====================
+add_executable(${PROJECT_NAME}
+    ${ALL_SOURCES}
+    ${ALL_HEADERS}
+    ${UI_FILES}
+    res.qrc
+)
+
+# ==================== Include 路径 ====================
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${OpenCV_INCLUDE_DIRS}
+)
+
+# ==================== 链接库 ====================
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+    Qt5::Network
+    Qt5::SerialPort
+    Qt5::Concurrent
+    ${OpenCV_LIBS}
+    ${ASOUND_LIB}
+    pthread
+)
+
+# GPIO 为可选依赖（桌面开发可能没有 libgpiod）
+if(GPIOD_LIB)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${GPIOD_LIB})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_LIBGPIOD)
+endif()
+
+# ==================== 编译选项 ====================
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    QT_DEPRECATED_WARNINGS
+)
+
+# T113 交叉编译时取消注释:
+# set(CMAKE_C_COMPILER   arm-openwrt-linux-gcc)
+# set(CMAKE_CXX_COMPILER arm-openwrt-linux-g++)
+# set(CMAKE_SYSROOT      /home/meetyoo/t113/Tina-Linux/out/t113-bingpi_m2/staging_dir/target)
