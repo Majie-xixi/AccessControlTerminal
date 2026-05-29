@@ -62,6 +62,9 @@ deploy/
 # private docs
 docs/
 
+# IDE
+.idea/
+
 # protobuf source files
 *.pb.h
 *.pb.cc

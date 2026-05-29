@@ -1,4 +1,14 @@
 cmake_minimum_required(VERSION 3.16)
+
+# ==================== Toolchain (桌面开发用 MinGW) ====================
+# CLion 中配置 Toolchain 后以下两行可删除
+if(NOT CMAKE_C_COMPILER)
+    set(CMAKE_C_COMPILER   "D:/Qt/Qt5.12.2/Tools/mingw730_32/bin/gcc.exe")
+endif()
+if(NOT CMAKE_CXX_COMPILER)
+    set(CMAKE_CXX_COMPILER "D:/Qt/Qt5.12.2/Tools/mingw730_32/bin/g++.exe")
+endif()
+
 project(AccessTerminal VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -8,8 +18,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 # ==================== Qt5 ====================
-set(CMAKE_PREFIX_PATH "$ENV{QT_HOME}" ${CMAKE_PREFIX_PATH})
-set(CMAKE_PREFIX_PATH "D:/Qt/Qt5.12.2/5.12.2/mingw73_32")
+set(CMAKE_PREFIX_PATH "D:/Qt/Qt5.12.2/5.12.2/mingw73_32" ${CMAKE_PREFIX_PATH})
 find_package(Qt5 REQUIRED COMPONENTS
     Core
     Gui
@@ -22,18 +31,22 @@ find_package(Qt5 REQUIRED COMPONENTS
 # ==================== OpenCV4 ====================
 # T113 交叉编译时替换为: /home/meetyoo/opencv_arm_build/_install
 set(OpenCV_DIR "" CACHE PATH "OpenCV install directory")
-find_package(OpenCV REQUIRED COMPONENTS
-    core
-    imgproc
-    objdetect
-    face
-)
+find_package(OpenCV COMPONENTS core imgproc objdetect face QUIET)
 
-# ==================== ALSA ====================
-find_library(ASOUND_LIB asound REQUIRED)
+# ==================== ALSA (Linux only) ====================
+if(NOT WIN32)
+    find_library(ASOUND_LIB asound REQUIRED)
+endif()
 
-# ==================== GPIO ====================
+# ==================== GPIO (Linux only) ====================
 find_library(GPIOD_LIB gpiod)
+
+# ==================== pthread (MinGW 用 winpthread) ====================
+if(WIN32)
+    set(PTHREAD_LIB "winpthread")
+else()
+    set(PTHREAD_LIB "pthread")
+endif()
 
 # ==================== 源文件 ====================
 set(APP_SOURCES
@@ -126,8 +139,17 @@ add_executable(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${OpenCV_INCLUDE_DIRS}
 )
+
+# OpenCV include / link (如果找到)
+if(OpenCV_FOUND)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${OpenCV_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${OpenCV_LIBS})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_OPENCV)
+    message(STATUS "OpenCV found: ${OpenCV_DIR}")
+else()
+    message(WARNING "OpenCV not found - 人脸识别功能不可用")
+endif()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Core
@@ -136,11 +158,15 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Network
     Qt5::SerialPort
     Qt5::Concurrent
-    ${OpenCV_LIBS}
-    ${ASOUND_LIB}
-    pthread
+    ${PTHREAD_LIB}
 )
 
+# ALSA (Linux only)
+if(NOT WIN32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${ASOUND_LIB})
+endif()
+
+# GPIO (Linux only)
 if(GPIOD_LIB)
     target_link_libraries(${PROJECT_NAME} PRIVATE ${GPIOD_LIB})
     target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_LIBGPIOD)
